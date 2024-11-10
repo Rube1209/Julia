@@ -90,3 +90,13 @@ struct Orth
         new(A_unit, B_orthogonal)
     end
 end
+
+# 定义点到直线距离的函数
+function point_line_distance(P::Point, A::Point, B::Point)
+    # 计算向量 AP 和 AB
+    AP = Vec(A, P)
+    AB = Vec(A, B)
+    
+    # 计算叉积的绝对值并除以 AB 的模长
+    return abs(cross(AP, AB)) / norm(AB)
+end
