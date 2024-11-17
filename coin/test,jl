@@ -1,0 +1,39 @@
+using Random
+
+Random.seed!(1234)
+
+# 表示抛银币的两个状态
+function state()
+    return rand(0:1)  # 0表示反面，1表示正面
+end
+
+# 计算连续三个正面出现的次数
+function calculate()
+    cout = 0  # 正面连续出现次数
+    total = 0  # 总的投掷次数
+    i = state()  # 在进入循环时才开始抛一次硬币
+
+    while cout < 3  # 直到连续三个正面
+        if i == 1  # 如果是正面
+            cout += 1
+        else
+            cout = 0  # 如果是反面，重置连续正面的计数
+        end
+        i = state()  # 继续抛一次硬币
+        total += 1  # 每次抛硬币都增加总投掷次数
+    end
+    return total
+end
+
+# 计算n次实验的平均投掷次数
+function average(n::Int)
+    s = 0
+    for i in 1:n
+        s += calculate()  # 调用calculate()函数
+    end
+    return s / n  # 返回平均值
+end
+
+# 执行1000次实验，计算平均值
+times = 10000
+println("Average number of tosses: ", average(times))
